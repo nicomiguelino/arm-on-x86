@@ -6,11 +6,12 @@ CORE_COUNT="$(nproc)"
 EXAMPLES_DIR='/src/examples'
 RELEASE_DIR='/build/release'
 
-EXAMPLE="${EXAMPLE:-dbus-1}"
+EXAMPLE="${EXAMPLE:-all}"
 
 function build_hello() {
     echo "Building the hello example..."
     local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/hello"
+    local ARCHIVE_NAME='hello-armv7.tar.gz'
     mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/hello
@@ -19,7 +20,10 @@ function build_hello() {
     cmake ..
     cmake --build . --parallel ${CORE_COUNT}
 
-    cp hello ${EXAMPLE_RELEASE_DIR}/hello-armv7
+    # Package the executables as tarballs.
+    tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} hello
+    cd ${EXAMPLE_RELEASE_DIR}
+    sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
 
 function build_dbus_1() {
@@ -36,7 +40,6 @@ function build_dbus_1() {
 
     # Package the executables as tarballs.
     tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} ping pong
-
     cd ${EXAMPLE_RELEASE_DIR}
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
@@ -47,6 +50,9 @@ function main() {
     if [ "${EXAMPLE}" == "hello" ]; then
         build_hello
     elif [ "${EXAMPLE}" == "dbus-1" ]; then
+        build_dbus_1
+    elif [ "${EXAMPLE}" == "all" ]; then
+        build_hello
         build_dbus_1
     else
         echo "Unknown example: ${EXAMPLE}"
