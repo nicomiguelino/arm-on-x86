@@ -6,3 +6,5 @@ services:
     privileged: true
     stdin_open: true
     tty: true
+    volumes:
+      - ./main.py:/app/main.py

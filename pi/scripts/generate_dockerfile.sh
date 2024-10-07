@@ -26,7 +26,7 @@ function main() {
     fi
 
     local RELEASES_URL="https://github.com/nicomiguelino/arm-on-x86/releases"
-    local RELEASE_TAG="v0.0.4"
+    local RELEASE_TAG="v0.0.5"
     local DOWNLOAD_URL_PREFIX="${RELEASES_URL}/download/${RELEASE_TAG}"
 
     if [[ $TARGET_DEVICE =~ ^(pi2|pi3|pi4)$ ]]; then
