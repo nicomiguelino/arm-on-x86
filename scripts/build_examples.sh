@@ -17,8 +17,8 @@ function build_hello() {
 
     cd ${EXAMPLES_DIR}/hello
 
-    mkdir -p build && cd build
-    cmake ..
+    mkdir -p build/${PLATFORM} && cd build/${PLATFORM}
+    cmake ../..
     cmake --build . --parallel ${CORE_COUNT}
 
     # Package the executables as tarballs.
@@ -35,8 +35,8 @@ function build_dbus_1() {
 
     cd ${EXAMPLES_DIR}/pingpong
 
-    mkdir -p build && cd build
-    cmake ..
+    mkdir -p build/${PLATFORM} && cd build/${PLATFORM}
+    cmake ../..
     cmake --build . --parallel ${CORE_COUNT}
 
     # Package the executables as tarballs.
