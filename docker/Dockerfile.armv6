@@ -1,0 +1,10 @@
+FROM balenalib/raspberry-pi:bookworm
+
+RUN apt-get update -y && \
+    apt-get install -y \
+        cmake \
+        gcc-arm-none-eabi \
+        build-essential \
+        qt6-base-dev
+
+WORKDIR /app

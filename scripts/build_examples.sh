@@ -7,11 +7,12 @@ EXAMPLES_DIR='/src/examples'
 RELEASE_DIR='/build/release'
 
 EXAMPLE="${EXAMPLE:-all}"
+PLATFORM="${PLATFORM:-'armv7'}"
 
 function build_hello() {
     echo "Building the hello example..."
     local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/hello"
-    local ARCHIVE_NAME='hello-armv7.tar.gz'
+    local ARCHIVE_NAME="hello-${PLATFORM}.tar.gz"
     mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/hello
@@ -29,7 +30,7 @@ function build_hello() {
 function build_dbus_1() {
     echo "Building the ping-pong D-Bus example..."
     local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/pingpong"
-    local ARCHIVE_NAME='pingpong-armv7.tar.gz'
+    local ARCHIVE_NAME="pingpong-${PLATFORM}.tar.gz"
     mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/pingpong
