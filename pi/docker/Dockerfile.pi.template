@@ -1,0 +1,22 @@
+FROM ${BASE_IMAGE_NAME}:${BASE_IMAGE_TAG}
+
+RUN apt-get -y update && \
+    apt-get install -y --no-install-recommends \
+        qt6-base-dev \
+        dbus-daemon \
+        dbus-x11 \
+        libdbus-1-dev \
+        libdbus-glib-1-dev \
+        wget
+WORKDIR /app
+
+RUN cd /app && \
+    wget ${DOWNLOAD_URL} && \
+    wget ${DOWNLOAD_URL}.sha256 && \
+    sha256sum -c ${ARCHIVE_NAME}.sha256 && \
+    tar -xvf ${ARCHIVE_NAME} && \
+    rm ${ARCHIVE_NAME} ${ARCHIVE_NAME}.sha256
+
+ENV QT_QPA_PLATFORM=linuxfb
+
+CMD ["bash"]
