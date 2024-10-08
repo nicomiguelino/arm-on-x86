@@ -3,6 +3,7 @@ FROM ${BASE_IMAGE_NAME}:${BASE_IMAGE_TAG}
 RUN apt-get -y update && \
     apt-get install -y --no-install-recommends \
         qt6-base-dev \
+        qt6-webengine-dev \
         dbus-daemon \
         dbus-x11 \
         libdbus-1-dev \
@@ -13,7 +14,8 @@ RUN apt-get -y update && \
         python3-pip \
         python3-setuptools \
         python-is-python3 \
-        wget
+        wget \
+        xserver-xorg
 
 WORKDIR /app
 
@@ -29,6 +31,8 @@ RUN \
 RUN cd /tmp && \
     touch /tmp/main.log
 
+RUN useradd -g video viewer
+
 RUN cd /app && \
     wget ${DOWNLOAD_URL} && \
     wget ${DOWNLOAD_URL}.sha256 && \
@@ -36,7 +40,8 @@ RUN cd /app && \
     tar -xzf ${ARCHIVE_NAME} && \
     rm ${ARCHIVE_NAME} ${ARCHIVE_NAME}.sha256
 
-ENV QT_QPA_PLATFORM=linuxfb
+ENV QT_QPA_PLATFORM=xcb
 ENV QT_QPA_DEBUG=1
+ENV DISPLAY=:0
 
 CMD ["bash"]
