@@ -5,6 +5,7 @@ RUN apt-get update -y && \
         cmake \
         gcc-arm-linux-gnueabihf \
         g++-arm-linux-gnueabihf \
-        qt6-base-dev
+        qt6-base-dev \
+        qt6-webengine-dev
 
 WORKDIR /app
