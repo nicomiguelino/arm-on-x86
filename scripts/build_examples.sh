@@ -45,7 +45,6 @@ function build_dbus_1() {
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
 
-# nico start - new example
 function build_webengine_1() {
     echo "Building the a simple content manipulation webengine example..."
     local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/webengine_1"
@@ -63,7 +62,24 @@ function build_webengine_1() {
     cd ${EXAMPLE_RELEASE_DIR}
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
-# nico end
+
+function build_webengine_2() {
+    echo "Building the a simple content manipulation webengine example..."
+    local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/webengine_2"
+    local ARCHIVE_NAME="webengine-2-${PLATFORM}.tar.gz"
+    mkdir -p ${EXAMPLE_RELEASE_DIR}
+
+    cd ${EXAMPLES_DIR}/webengine_2
+
+    mkdir -p build/${PLATFORM} && cd build/${PLATFORM}
+    cmake ../..
+    cmake --build . --parallel ${CORE_COUNT}
+
+    # Package the executables as tarballs.
+    tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} webengine2
+    cd ${EXAMPLE_RELEASE_DIR}
+    sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
+}
 
 function main() {
     mkdir -p ${RELEASE_DIR}
@@ -74,10 +90,13 @@ function main() {
         build_dbus_1
     elif [ "${EXAMPLE}" == "webengine-1" ]; then
         build_webengine_1
+    elif [ "${EXAMPLE}" == "webengine-2" ]; then
+        build_webengine_2
     elif [ "${EXAMPLE}" == "all" ]; then
         build_hello
         build_dbus_1
         build_webengine_1
+        build_webengine_2
     else
         echo "Unknown example: ${EXAMPLE}"
         exit 1
