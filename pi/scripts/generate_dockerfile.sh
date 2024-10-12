@@ -26,16 +26,18 @@ function main() {
     fi
 
     local RELEASES_URL="https://github.com/nicomiguelino/arm-on-x86/releases"
-    local RELEASE_TAG="v0.0.5"
+    local RELEASE_TAG="v0.0.6"
     local DOWNLOAD_URL_PREFIX="${RELEASES_URL}/download/${RELEASE_TAG}"
 
-    if [[ $TARGET_DEVICE =~ ^(pi2|pi3|pi4)$ ]]; then
+    if [[ $TARGET_DEVICE == "pi4" ]]; then
+        local PLATFORM="arm64"
+    elif [[ $TARGET_DEVICE =~ ^(pi2|pi3)$ ]]; then
         local PLATFORM="armv7"
     else
         local PLATFORM="armv6"
     fi
 
-    export ARCHIVE_NAME="pingpong-${PLATFORM}.tar.gz"
+    export ARCHIVE_NAME="webengine-2-${PLATFORM}.tar.gz"
     export DOWNLOAD_URL="${DOWNLOAD_URL_PREFIX}/${ARCHIVE_NAME}"
 
     cat ${DOCKERFILE_TEMPLATE_PATH} | envsubst > ${DOCKERFILE_PATH}

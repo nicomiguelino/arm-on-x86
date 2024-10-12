@@ -37,7 +37,7 @@ RUN cd /app && \
     wget ${DOWNLOAD_URL} && \
     wget ${DOWNLOAD_URL}.sha256 && \
     sha256sum -c ${ARCHIVE_NAME}.sha256 && \
-    tar -xzf ${ARCHIVE_NAME} && \
+    tar -xzf ${ARCHIVE_NAME} -C /usr/local/bin && \
     rm ${ARCHIVE_NAME} ${ARCHIVE_NAME}.sha256
 
 RUN mkdir -p /scripts
@@ -45,6 +45,7 @@ COPY ./scripts/start_viewer.sh /scripts/start_viewer.sh
 
 ENV QT_QPA_PLATFORM=xcb
 ENV QT_QPA_DEBUG=1
+ENV QTWEBENGINE_CHROMIUM_FLAGS="--no-sandbox"
 ENV DISPLAY=:0
 
 CMD ["bash", "/scripts/start_viewer.sh"]
