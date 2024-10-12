@@ -29,7 +29,7 @@ int main(int argc, char * argv[])
     QUrl url = QUrl("http://www.google.com/ncr");
 
     MainWindow *browser = new MainWindow(url);
-    browser->resize(1024, 768);
+    browser->resize(1920, 1080);
     browser->show();
 
     return app.exec();

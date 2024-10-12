@@ -3,9 +3,11 @@ FROM balenalib/raspberry-pi:bookworm
 RUN apt-get update -y && \
     apt-get install -y \
         cmake \
-        gcc-arm-none-eabi \
         build-essential \
-        qt6-base-dev \
-        qt6-webengine-dev
+        build-essential \
+        qt6-base-dev
+
+# ENV CXX=/usr/bin/arm-none-eabi-g++
+# ENV CC=/usr/bin/arm-none-eabi-gcc
 
 WORKDIR /app

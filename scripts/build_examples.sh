@@ -11,9 +11,7 @@ PLATFORM="${PLATFORM:-'armv7'}"
 
 function build_hello() {
     echo "Building the hello example..."
-    local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/hello"
     local ARCHIVE_NAME="hello-${PLATFORM}.tar.gz"
-    mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/hello
 
@@ -22,16 +20,14 @@ function build_hello() {
     cmake --build . --parallel ${CORE_COUNT}
 
     # Package the executables as tarballs.
-    tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} hello
-    cd ${EXAMPLE_RELEASE_DIR}
+    tar -czf ${RELEASE_DIR}/${ARCHIVE_NAME} hello
+    cd ${RELEASE_DIR}
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
 
 function build_dbus_1() {
     echo "Building the ping-pong D-Bus example..."
-    local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/pingpong"
     local ARCHIVE_NAME="pingpong-${PLATFORM}.tar.gz"
-    mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/pingpong
 
@@ -40,16 +36,14 @@ function build_dbus_1() {
     cmake --build . --parallel ${CORE_COUNT}
 
     # Package the executables as tarballs.
-    tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} ping pong
-    cd ${EXAMPLE_RELEASE_DIR}
+    tar -czf ${RELEASE_DIR}/${ARCHIVE_NAME} ping pong
+    cd ${RELEASE_DIR}
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
 
 function build_webengine_1() {
     echo "Building the a simple content manipulation webengine example..."
-    local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/webengine_1"
     local ARCHIVE_NAME="webengine-1-${PLATFORM}.tar.gz"
-    mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/webengine_1
 
@@ -58,16 +52,14 @@ function build_webengine_1() {
     cmake --build . --parallel ${CORE_COUNT}
 
     # Package the executables as tarballs.
-    tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} contentmanipulation
-    cd ${EXAMPLE_RELEASE_DIR}
+    tar -czf ${RELEASE_DIR}/${ARCHIVE_NAME} contentmanipulation
+    cd ${RELEASE_DIR}
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
 
 function build_webengine_2() {
     echo "Building the a simple content manipulation webengine example..."
-    local EXAMPLE_RELEASE_DIR="${RELEASE_DIR}/webengine_2"
     local ARCHIVE_NAME="webengine-2-${PLATFORM}.tar.gz"
-    mkdir -p ${EXAMPLE_RELEASE_DIR}
 
     cd ${EXAMPLES_DIR}/webengine_2
 
@@ -76,8 +68,8 @@ function build_webengine_2() {
     cmake --build . --parallel ${CORE_COUNT}
 
     # Package the executables as tarballs.
-    tar -czf ${EXAMPLE_RELEASE_DIR}/${ARCHIVE_NAME} webengine2
-    cd ${EXAMPLE_RELEASE_DIR}
+    tar -czf ${RELEASE_DIR}/${ARCHIVE_NAME} webengine2
+    cd ${RELEASE_DIR}
     sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256
 }
 
