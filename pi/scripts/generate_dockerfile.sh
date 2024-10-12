@@ -22,7 +22,7 @@ function main() {
     elif [[ "$TARGET_DEVICE" == "pi3" ]]; then
         export BASE_IMAGE_NAME="balenalib/raspberrypi3-debian"
     elif [[ "$TARGET_DEVICE" == "pi4" ]]; then
-        export BASE_IMAGE_NAME="balenalib/raspberrypi3-debian"
+        export BASE_IMAGE_NAME="balenalib/raspberrypi4-64-debian"
     fi
 
     local RELEASES_URL="https://github.com/nicomiguelino/arm-on-x86/releases"

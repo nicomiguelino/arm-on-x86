@@ -40,8 +40,11 @@ RUN cd /app && \
     tar -xzf ${ARCHIVE_NAME} && \
     rm ${ARCHIVE_NAME} ${ARCHIVE_NAME}.sha256
 
+RUN mkdir -p /scripts
+COPY ./scripts/start_viewer.sh /scripts/start_viewer.sh
+
 ENV QT_QPA_PLATFORM=xcb
 ENV QT_QPA_DEBUG=1
 ENV DISPLAY=:0
 
-CMD ["bash"]
+CMD ["bash", "/scripts/start_viewer.sh"]
