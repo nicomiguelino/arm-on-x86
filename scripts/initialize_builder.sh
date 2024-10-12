@@ -2,19 +2,23 @@
 
 set -euo pipefail
 
-PLATFORM=${PLATFORM:-'armv7'}
+PLATFORM=${PLATFORM:-'arm64'}
+BUILDX_ARGS=(
+    '-f' "docker/Dockerfile.${PLATFORM}"
+    '-t' 'qt6-builder'
+)
 
-if [ "${PLATFORM}" == 'armv7' ]; then
-    BUILDX_ARGS=(
-        '-f' 'docker/Dockerfile.armv7'
+if [ "${PLATFORM}" = 'arm64' ]; then
+    BUILDX_ARGS+=(
+        '--platform' 'linux/arm64/v8'
+    )
+elif [ "${PLATFORM}" == 'armv7' ]; then
+    BUILDX_ARGS+=(
         '--platform' 'linux/arm/v7'
-        '-t' 'qt6-builder'
     )
 elif [ "${PLATFORM}" = 'armv6' ]; then
-    BUILDX_ARGS=(
-        '-f' 'docker/Dockerfile.armv6'
+    BUILDX_ARGS+=(
         '--platform' 'linux/arm/v6'
-        '-t' 'qt6-builder'
     )
 else
     echo "Unknown platform: ${PLATFORM}"
