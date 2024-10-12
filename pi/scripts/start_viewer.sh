@@ -9,8 +9,9 @@ function start_x_server() {
 
 function main() {
     start_x_server
-    webengine2
-    sleep 1
+    sleep 2
+    xset s off -dpms
+    BROWSER_URL='https://anthias.screenly.io/' webengine2
 }
 
 main

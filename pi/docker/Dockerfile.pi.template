@@ -15,7 +15,8 @@ RUN apt-get -y update && \
         python3-setuptools \
         python-is-python3 \
         wget \
-        xserver-xorg
+        xserver-xorg \
+        x11-xserver-utils
 
 WORKDIR /app
 
