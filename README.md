@@ -41,3 +41,9 @@ Build the examples by running:
 
 Outside the container, you can see the build binaries inside the
 `build/release` directory.
+
+## Building all the examples on all the platforms
+
+```bash
+./scripts/package_examples.sh # This will build the examples for arm64 and armv7
+```
