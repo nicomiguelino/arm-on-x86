@@ -10,7 +10,7 @@ int main(int argc, char * argv[])
     QUrl url = url_string.isEmpty() ? QUrl("https://example.com") : QUrl(url_string);
 
     MainWindow *browser = new MainWindow(url);
-    browser->resize(1280, 720);
+    browser->resize(1920, 1080);
     browser->show();
 
     return app.exec();
