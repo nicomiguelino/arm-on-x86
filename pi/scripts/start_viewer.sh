@@ -11,7 +11,8 @@ function main() {
     start_x_server
     sleep 2
     xset s off -dpms
-    BROWSER_URL='https://anthias.screenly.io/' webengine2
+
+    sleep infinity
 }
 
 main

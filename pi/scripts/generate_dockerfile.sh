@@ -26,7 +26,7 @@ function main() {
     fi
 
     local RELEASES_URL="https://github.com/nicomiguelino/arm-on-x86/releases"
-    local RELEASE_TAG="v0.0.8"
+    local RELEASE_TAG="v0.0.9"
     local DOWNLOAD_URL_PREFIX="${RELEASES_URL}/download/${RELEASE_TAG}"
 
     if [[ $TARGET_DEVICE == "pi4" ]]; then
@@ -37,7 +37,7 @@ function main() {
         local PLATFORM="armv6"
     fi
 
-    export ARCHIVE_NAME="webengine-2-${PLATFORM}.tar.gz"
+    export ARCHIVE_NAME="webview-${PLATFORM}.tar.gz"
     export DOWNLOAD_URL="${DOWNLOAD_URL_PREFIX}/${ARCHIVE_NAME}"
 
     cat ${DOCKERFILE_TEMPLATE_PATH} | envsubst > ${DOCKERFILE_PATH}

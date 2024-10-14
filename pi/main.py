@@ -1,26 +1,25 @@
+import argparse
 import logging
-import os
 import pydbus
-import sh
 
 from time import sleep
 
 logging.basicConfig(level=logging.INFO)
 
 def main():
-    os.environ['QT_QPA_DEBUG'] = '1'
+    parser = argparse.ArgumentParser(description='WebView Sandbox')
+    parser.add_argument(
+        '--url',
+        type=str,
+        default='https://anthias.screenly.io/',
+        help='URL to load in the webview'
+    )
 
-    # Run `./pong` in the background.
-    # subprocess.run in background
-    process = sh.Command('./pong')(_bg=True, _err_to_out=True)
-    sleep(3)
+    args = parser.parse_args()
 
-    # Get the D-Bus session bus.
     bus = pydbus.SessionBus()
-    bus_instance = bus.get('sandbox.pingpong', '/')
-
-    # Call the method `ping` on the D-Bus object.
-    bus_instance.ping('World')
+    bus_instance = bus.get('sandbox.webview', '/')
+    bus_instance.loadPage(args.url)
 
 
 if __name__ == '__main__':
