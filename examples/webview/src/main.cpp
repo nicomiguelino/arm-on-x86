@@ -1,6 +1,9 @@
 #include <QApplication>
+#include <QDBusConnection>
 
 #include "mainwindow.h"
+
+#define SERVICE_NAME "sandbox.webview"
 
 int main(int argc, char * argv[])
 {
@@ -12,6 +15,22 @@ int main(int argc, char * argv[])
     MainWindow *browser = new MainWindow(url);
     browser->resize(1920, 1080);
     browser->show();
+
+    auto connection = QDBusConnection::sessionBus();
+
+    if (!connection.isConnected()) {
+        qWarning("Cannot connect to the D-Bus session bus.");
+        return 1;
+    }
+
+    if (!connection.registerService(SERVICE_NAME)) {
+        qWarning("Cannot register the D-Bus service: %s", SERVICE_NAME);
+        return 1;
+    }
+
+    connection.registerObject("/", browser, QDBusConnection::ExportAllSlots);
+
+    qDebug() << "Registered D-Bus service: " << SERVICE_NAME;
 
     return app.exec();
 }
