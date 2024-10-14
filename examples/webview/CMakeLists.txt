@@ -5,7 +5,7 @@ set(CMAKE_AUTOMOC ON)
 
 set(TARGET_ARCHITECTURE arm-linux-gnueabihf)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui WebEngineWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Core DBus Gui WebEngineWidgets)
 
 set(INCLUDE_FILES
     src/mainwindow.h
@@ -23,6 +23,7 @@ qt_add_executable(webview
 
 target_link_libraries(webview PUBLIC
     Qt::Core
+    Qt::DBus
     Qt::Gui
     Qt::WebEngineWidgets
 )

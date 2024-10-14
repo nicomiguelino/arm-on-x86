@@ -12,3 +12,9 @@ MainWindow::MainWindow(const QUrl& url)
 
     setCentralWidget(view);
 }
+
+void MainWindow::loadPage(const QString &url)
+{
+    qWarning() << "Loading URL: " << url;
+    view->load(QUrl(url));
+}

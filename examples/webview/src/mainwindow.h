@@ -10,6 +10,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(const QUrl& url);
 
+public slots:
+    void loadPage(const QString &url);
+
 private:
     QWebEngineView *view;
 };
