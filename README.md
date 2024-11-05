@@ -8,7 +8,7 @@ on x86-based machines.
 Install and set up QEMU on your machine. On Ubuntu, you can do this by running:
 
 ```bash
-sudo apt-get install qemu binfmt-support qemu-user-static
+sudo apt-get install binfmt-support qemu-user-static
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 docker run --rm -t arm32v7/debian uname -m # This should return `armv7l`
 ```
