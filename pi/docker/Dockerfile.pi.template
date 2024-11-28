@@ -2,10 +2,7 @@ FROM ${BASE_IMAGE_NAME}:${BASE_IMAGE_TAG}
 
 RUN apt-get -y update && \
     apt-get install -y --no-install-recommends \
-        qt6-base-dev \
-        qt6-webengine-dev \
         dbus-daemon \
-        dbus-x11 \
         libdbus-1-dev \
         libdbus-glib-1-dev \
         python3-dev \
@@ -14,9 +11,27 @@ RUN apt-get -y update && \
         python3-pip \
         python3-setuptools \
         python-is-python3 \
-        wget \
-        xserver-xorg \
-        x11-xserver-utils
+        wget
+
+RUN apt-get -y update && \
+    apt-get install -y --no-install-recommends \
+        libfontconfig1-dev \
+        libdbus-1-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libinput-dev \
+        libxkbcommon-dev \
+        libsqlite3-dev \
+        libpng-dev \
+        libssl-dev \
+        libjpeg-dev \
+        libglib2.0-dev
+
+RUN apt-get -y update && \
+    apt-get install -y --no-install-recommends \
+        libgles2-mesa-dev \
+        libgbm-dev \
+        libdrm-dev
 
 WORKDIR /app
 
@@ -29,24 +44,26 @@ COPY requirements/requirements.txt /tmp/requirements.txt
 RUN \
     pip3 install -r /tmp/requirements.txt --break-system-packages
 
+
+RUN curl -sL https://github.com/nicomiguelino/build-qt6-on-pi/releases/download/v0.0.0/qt-6.5.3-pi4.tar.gz \
+    -o /tmp/qt-6.5.3-pi4.tar.gz && \
+    tar -zxf /tmp/qt-6.5.3-pi4.tar.gz -C /usr/local
+
+RUN curl -sL https://github.com/nicomiguelino/build-qt6-on-pi/releases/download/v0.0.0/hello-pi4.tar.gz \
+    -o /tmp/hello-pi4.tar.gz && \
+    tar -zxf /tmp/hello-pi4.tar.gz -C /usr/local/bin
+
 RUN cd /tmp && \
     touch /tmp/main.log
 
 RUN useradd -g video viewer
 
-RUN cd /app && \
-    wget ${DOWNLOAD_URL} && \
-    wget ${DOWNLOAD_URL}.sha256 && \
-    sha256sum -c ${ARCHIVE_NAME}.sha256 && \
-    tar -xzf ${ARCHIVE_NAME} -C /usr/local/bin && \
-    rm ${ARCHIVE_NAME} ${ARCHIVE_NAME}.sha256
-
 RUN mkdir -p /scripts
 COPY ./scripts/start_viewer.sh /scripts/start_viewer.sh
 
-ENV QT_QPA_PLATFORM=xcb
+ENV LD_LIBRARY_PATH=/usr/local/qt6/lib
+ENV QT_QPA_PLATFORM=linuxfb
 ENV QT_QPA_DEBUG=1
 ENV QTWEBENGINE_CHROMIUM_FLAGS="--no-sandbox"
-ENV DISPLAY=:0
 
 CMD ["bash", "/scripts/start_viewer.sh"]
