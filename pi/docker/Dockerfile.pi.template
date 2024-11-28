@@ -45,13 +45,13 @@ RUN \
     pip3 install -r /tmp/requirements.txt --break-system-packages
 
 
-RUN curl -sL https://github.com/nicomiguelino/build-qt6-on-pi/releases/download/v0.0.0/qt-6.5.3-pi4.tar.gz \
-    -o /tmp/qt-6.5.3-pi4.tar.gz && \
-    tar -zxf /tmp/qt-6.5.3-pi4.tar.gz -C /usr/local
+RUN curl -sL https://github.com/nicomiguelino/build-qt6-on-pi/releases/download/v0.0.0/qt-6.5.3-${TARGET_DEVICE}.tar.gz \
+    -o /tmp/qt-6.5.3-${TARGET_DEVICE}.tar.gz && \
+    tar -zxf /tmp/qt-6.5.3-${TARGET_DEVICE}.tar.gz -C /usr/local
 
-RUN curl -sL https://github.com/nicomiguelino/build-qt6-on-pi/releases/download/v0.0.0/hello-pi4.tar.gz \
-    -o /tmp/hello-pi4.tar.gz && \
-    tar -zxf /tmp/hello-pi4.tar.gz -C /usr/local/bin
+RUN curl -sL https://github.com/nicomiguelino/build-qt6-on-pi/releases/download/v0.0.0/hello-${TARGET_DEVICE}.tar.gz \
+    -o /tmp/hello-${TARGET_DEVICE}.tar.gz && \
+    tar -zxf /tmp/hello-${TARGET_DEVICE}.tar.gz -C /usr/local/bin
 
 RUN cd /tmp && \
     touch /tmp/main.log
